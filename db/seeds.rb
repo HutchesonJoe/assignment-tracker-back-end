@@ -1,5 +1,5 @@
 puts "🌱 Seeding spices..."
 
-# Seed your database here
+# informative_speech = Assignment.create(description)
 
 puts "✅ Done seeding!"
