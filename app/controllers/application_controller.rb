@@ -3,7 +3,22 @@ class ApplicationController < Sinatra::Base
   
   # Add your routes here
   get "/" do
-    { message: "Good luck with your project!" }.to_json
+    roster = Student.all
+    roster.to_json
   end
 
+  get "/students" do
+    roster = Student.all.order(last_name: :asc)
+    roster.to_json
+  end
+
+  get "/assignments" do
+    assignments = Assignment.all
+    assignments.to_json
+  end
+
+  get "/submissions" do
+    submissions = Submission.all
+    submissions.to_json
+  end
 end

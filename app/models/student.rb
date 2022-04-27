@@ -1,4 +1,4 @@
 class Student < ActiveRecord::Base
-  has_many :assignments
-  has_many :teachers, through: :assignments
+  has_many :submissions
+  has_many :assignments, through: :submissions
 end
