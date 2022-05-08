@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2022_04_26_204502) do
     t.string "grade_level"
     t.float "gpa"
     t.string "email"
+    t.string "current_grade"
   end
 
   create_table "submissions", force: :cascade do |t|
@@ -31,7 +32,6 @@ ActiveRecord::Schema.define(version: 2022_04_26_204502) do
     t.string "teacher_notes"
     t.integer "assignment_id"
     t.integer "student_id"
-    t.datetime "submitted_at"
   end
 
 end

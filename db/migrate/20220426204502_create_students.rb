@@ -6,6 +6,7 @@ class CreateStudents < ActiveRecord::Migration[6.1]
       t.string :grade_level
       t.float :gpa
       t.string :email
+      t.string :current_grade
     end
   end
 end

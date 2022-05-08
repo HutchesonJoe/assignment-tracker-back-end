@@ -19,7 +19,7 @@ class ApplicationController < Sinatra::Base
 
   get "/assignments" do
     assignments = Assignment.all
-    assignments.to_json
+    assignments.to_json(include: :students)
   end
 
   get "/assignments/:id" do
@@ -29,12 +29,12 @@ class ApplicationController < Sinatra::Base
 
   get "/submissions" do
     submissions = Submission.all
-    submissions.to_json(include: :assignment) 
+    submissions.to_json(include:[:student, :assignment]) 
   end
 
   get "/submissions/:id" do
     submission = Submission.find(params[:id])
-    submission.to_json
+    submission.to_json(include: [:student, :assignment])
   end
 
   get "/submissions_by_student" do
@@ -50,7 +50,7 @@ class ApplicationController < Sinatra::Base
 
   get "/submissions_by_assignment" do
     submissions = Assignment.all
-    submissions.to_json(include: {submissions: {include: :student}})
+    submissions.to_json(include:{submissions: {include: :student}})
   end
 
   get "/submissions_by_assignment/:id" do
@@ -74,7 +74,7 @@ class ApplicationController < Sinatra::Base
       points_earned: params[:points_earned],
       teacher_notes: params[:teacher_notes]
     )
-    submission.to_json(include: :assignment)
+    submission.to_json(include: [:student, :assignment])
   end
 
   delete "/submissions/:id" do
@@ -87,6 +87,21 @@ class ApplicationController < Sinatra::Base
     assignment = Assignment.find(params[:id])
     assignment.destroy
     assignment.to_json
+  end
+
+  post "/submissions" do
+    submission = Submission.create(
+      points_earned: params[:points_earned],
+      teacher_notes: params[:teacher_notes],
+      assignment_id: params[:assignment_id],
+      student_id: params[:student_id]
+    )
+    submission.to_json(include: [:student, :assignment])
+  end
+
+  get "/class_average" do
+    average = Student.class_average
+    average.to_json
   end
 
 end

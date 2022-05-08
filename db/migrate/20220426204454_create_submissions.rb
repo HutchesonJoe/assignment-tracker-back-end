@@ -5,7 +5,6 @@ class CreateSubmissions < ActiveRecord::Migration[6.1]
       t.string :teacher_notes
       t.integer :assignment_id
       t.integer :student_id
-      t.timestamp :submitted_at
     end
   end
 end
